@@ -14,14 +14,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Create AWS Creds folder
-      run: mkdir -p ~/.aws
-
-    - name: Create AWS Creds file
-      run: echo "[default]" > ~/.aws/credentials; echo "aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials; echo "aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
-
-    - name: Create AWS Config file
-      run: echo "[default]" > ~/.aws/config; echo "region = eu-central-1" >> ~/.aws/config; echo "output = json" >> ~/.aws/config
+    - name: Create AWS Creds
+      run: mkdir -p ~/.aws; echo "[default]" > ~/.aws/credentials; echo "aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials; echo "aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials; echo "[default]" > ~/.aws/config; echo "region = eu-central-1" >> ~/.aws/config; echo "output = json" >> ~/.aws/config
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
@@ -47,18 +41,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
+    - name: Create AWS Creds
+      run: mkdir -p ~/.aws; echo "[default]" > ~/.aws/credentials; echo "aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials; echo "aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials; echo "[default]" > ~/.aws/config; echo "region = eu-central-1" >> ~/.aws/config; echo "output = json" >> ~/.aws/config
+
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
-
-    - name: AWS Connect
-      run:
-        - mkdir -p ~/.aws
-        - echo "[default]" > ~/.aws/credentials
-        - echo "aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials
-        - echo "aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
-        - echo "[default]" > ~/.aws/config
-        - echo "region = eu-central-1" >> ~/.aws/config
-        - echo "output = json" >> ~/.aws/config
 
     - name: Terraform Init
       run: cd infra/solution; terraform init

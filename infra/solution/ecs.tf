@@ -37,7 +37,8 @@ resource "aws_ecs_service" "svc" {
   wait_for_steady_state   = true
 
   network_configuration {
-    subnets = ["${aws_subnet.sn1.id}","${aws_subnet.sn2.id}"]
+    subnets          = ["${aws_subnet.sn1.id}","${aws_subnet.sn2.id}"]
+    assign_public_ip = true
   }
 }
 

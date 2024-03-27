@@ -30,12 +30,12 @@ jobs:
       run: cd infra/s3; terraform validate
 
     - name: Terraform Plan
-      run: cd infra/s3; terraform plan -var="aws_region=${{ secrets.AWS_REGION }}" -var="vpc_block=${{ secrets.VPC_BLOCK }}" -var="subnet1_block=${{ secrets.SUBNET1_BLOCK }}" -var="subnet2_block=${{ secrets.SUBNET2_BLOCK }}" -var="app_db_name=${{ secrets.APP_DB_NAME }}" -var="app_db_user=${{ secrets.APP_DB_USER }}" -var="app_db_password=${{ secrets.APP_DB_PASSWORD }}" -var="app_name=${{ secrets.APP_NAME }}" -var="app_image=${{ secrets.APP_IMAGE }}" -var="service_name=${{ secrets.SERVICE_NAME }}" -out=tfplan
+      run: cd infra/s3; terraform plan -out=tfplan
       continue-on-error: true
 
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push' || github.ref == 'refs/heads/initial-branch' && github.event_name == 'push'
-      run: cd infra/s3; terraform apply -auto-approve -var="aws_region=${{ secrets.AWS_REGION }}" -var="vpc_block=${{ secrets.VPC_BLOCK }}" -var="subnet1_block=${{ secrets.SUBNET1_BLOCK }}" -var="subnet2_block=${{ secrets.SUBNET2_BLOCK }}" -var="app_db_name=${{ secrets.APP_DB_NAME }}" -var="app_db_user=${{ secrets.APP_DB_USER }}" -var="app_db_password=${{ secrets.APP_DB_PASSWORD }}" -var="app_name=${{ secrets.APP_NAME }}" -var="app_image=${{ secrets.APP_IMAGE }}" -var="service_name=${{ secrets.SERVICE_NAME }}"
+      run: cd infra/s3; terraform apply -auto-approve
 
     - name: Navigate back to initial folder
       run: cd -

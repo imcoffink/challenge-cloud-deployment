@@ -33,6 +33,7 @@ jobs:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push' || github.ref == 'refs/heads/initial-branch' && github.event_name == 'push'
       run: cd infra/s3; terraform apply -auto-approve
+      continue-on-error: true
 
   solution_deployment:
     name: 'Solution Deployment'

@@ -1,3 +1,4 @@
+### RDS instance configuration - PostgreSQL 16.1
 resource "aws_db_instance" "postgres" {
   allocated_storage      = 20
   storage_type           = "gp2"

@@ -1,3 +1,4 @@
+### S3 bucket to be used as backend for the solution
 resource "aws_s3_bucket" "bucket" {
   bucket = "challenge-iagomisko-terraform-states"
 
@@ -6,11 +7,13 @@ resource "aws_s3_bucket" "bucket" {
   }
 }
 
+### ACL to control bucket access
 resource "aws_s3_bucket_acl" "acl" {
   bucket = aws_s3_bucket.bucket.id
   acl    = "private"
 }
 
+### Bucket ownership
 resource "aws_s3_bucket_ownership_controls" "ownership" {
   bucket = aws_s3_bucket.bucket.id
 
@@ -19,6 +22,7 @@ resource "aws_s3_bucket_ownership_controls" "ownership" {
   }
 }
 
+### Restrict access to the bucket
 resource "aws_s3_bucket_public_access_block" "access" {
   bucket = aws_s3_bucket.bucket.id
 

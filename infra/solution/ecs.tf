@@ -1,7 +1,9 @@
+### ECS Cluster to run the webserver
 resource "aws_ecs_cluster" "cluster" {
   name = "challenge-container-cluster"
 }
 
+### Task definition to create the container
 resource "aws_ecs_task_definition" "app" {
   family                   = "${var.app_name}"
   network_mode             = "awsvpc"
@@ -27,6 +29,7 @@ resource "aws_ecs_task_definition" "app" {
 DEFINITION
 }
 
+### Webserver service
 resource "aws_ecs_service" "svc" {
   name                    = "${var.service_name}"
   cluster                 = "${aws_ecs_cluster.cluster.id}"

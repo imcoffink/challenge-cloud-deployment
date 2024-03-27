@@ -3,8 +3,8 @@ name: 'Terraform'
 on:
   push:
     branches:
-    - main
-	- 'initial-branch'
+      - main
+	  - 'initial-branch'
 
 jobs:
   state_s3:

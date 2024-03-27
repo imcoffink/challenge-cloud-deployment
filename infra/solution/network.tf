@@ -84,3 +84,12 @@ resource "aws_route_table_association" "srta2" {
   subnet_id      = "${aws_subnet.sn2.id}"
   route_table_id = "${aws_route_table.vrt.id}"
 }
+
+resource "aws_db_subnet_group" "dbg" {
+  name       = "challenge-db-subnet-group"
+  subnet_ids = ["${aws_subnet.sn1.id}","${aws_subnet.sn2.id}"]
+
+  tags = {
+    Name = "Challenge DB Subnet Group"
+  }
+}

@@ -17,3 +17,13 @@ resource "aws_iam_role" "ecs_execution_role" {
 }
 EOF
 }
+
+resource "aws_iam_role_policy_attachment" "ecrread" {
+  role       = "${aws_iam_role.ecs_execution_role.name}"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+}
+
+#resource "aws_iam_role_policy_attachment" "fulliam" {
+#  role       = "${aws_iam_role.ecs_execution_role.name}"
+#  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+#}

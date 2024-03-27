@@ -42,9 +42,3 @@ resource "aws_ecs_service" "svc" {
   }
 }
 
-data "aws_network_interface" "interface_tags" {
-  filter {
-    name   = "tag:aws:ecs:serviceName"
-	values = ["${aws_ecs_service.svc.name}"]
-  }
-}

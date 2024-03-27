@@ -43,7 +43,7 @@ resource "aws_security_group" "allow_app" {
     from_port   = 5432
     to_port     = 5432
     protocol    = "tcp"
-    cidr_blocks = ["${data.aws_network_interface.interface_tags.association[0].public_ip}/32"]
+    cidr_blocks = ["${var.subnet1_block}","${var.subnet2_block}"]
   }
 
   egress {
@@ -54,3 +54,33 @@ resource "aws_security_group" "allow_app" {
   }
 }
 
+resource "aws_internet_gateway" "igw" {
+  vpc_id = "${aws_vpc.vpc.id}"
+
+  tags = {
+    Name = "Challenge VPC IG"
+  }
+}
+
+resource "aws_route_table" "vrt" {
+  vpc_id = "${aws_vpc.vpc.id}"
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = "${aws_internet_gateway.igw.id}"
+  }
+
+  tags = {
+    Name = "Challenge Route Table"
+  }
+}
+
+resource "aws_route_table_association" "srta1" {
+  subnet_id      = "${aws_subnet.sn1.id}"
+  route_table_id = "${aws_route_table.vrt.id}"
+}
+
+resource "aws_route_table_association" "srta2" {
+  subnet_id      = "${aws_subnet.sn2.id}"
+  route_table_id = "${aws_route_table.vrt.id}"
+}

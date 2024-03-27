@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "aws-challenge-terraform-states"
+    bucket = "challenge-iagomisko-terraform-states"
     key = "challenge.tfstate"
     region = "eu-central-1"
   }

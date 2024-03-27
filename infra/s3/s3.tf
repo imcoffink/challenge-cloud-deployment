@@ -1,8 +1,8 @@
 resource "aws_s3_bucket" "bucket" {
-  bucket = "aws-challenge-terraform-states"
+  bucket = "challenge-iagomisko-terraform-states"
 
   tags = { 
-    Name = "aws-challenge-terraform-states"
+    Name = "challenge-iagomisko-terraform-states"
   }
 }
 
